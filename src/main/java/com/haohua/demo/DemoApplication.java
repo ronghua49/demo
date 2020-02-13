@@ -16,7 +16,7 @@ public class DemoApplication {
 
     @GetMapping("/hello/{name}")
     public String hello(@PathVariable String name) {
-        return "hel  welcome  " + name;
+        return "hi  welcome  " + name;
     }
 
 }
