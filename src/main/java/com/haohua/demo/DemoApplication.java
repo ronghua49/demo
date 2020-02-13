@@ -8,12 +8,14 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
 @EnableCaching
 @CacheConfig(cacheNames = {"cashTest"})
+@ResponseBody
 public class DemoApplication {
 
     public static void main(String[] args) {
@@ -21,19 +23,20 @@ public class DemoApplication {
     }
 
     @GetMapping("/hello/{name}")
-    @CachePut(key = "guest")
+    @CachePut(key = "#name")
     public String hello(@PathVariable String name) {
         return  name;
     }
 
-    @GetMapping("/hello/again/{param}")
-    @Cacheable(key = "guest")
-    public String helloAgain(@PathVariable String param){
-        return param;
+    @GetMapping("/hello/again/{name}")
+	
+    @Cacheable(key = "#name")
+    public String helloAgain(@PathVariable String name){
+        return name;
     }
 
     @GetMapping("/hello/del")
-    @Cacheable(key = "guest")
+    @Cacheable(key = "#p0")
     public void helloDel(){
     }
 
